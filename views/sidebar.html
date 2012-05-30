@@ -1,0 +1,99 @@
+<script src="/js/app/jquery.superus.sidebar.js"></script>
+
+
+
+<div  style="margin-left:0px;" id="sidebar" class="wrap-height">
+	<div class=" box bg-white outline wrap-height" >
+		<div style="padding: 8px 0;" class="">
+		  <ul class="nav nav-list">
+		    <li class="nav-header">Actions</li>
+		    <li class=""><a href="#new-annotation-modal"  data-toggle="modal" ><i class=" icon-edit"></i> New annotation</a></li>
+<!--		    <li class="divider"></li>-->
+		    <li class="nav-header">Search results <span id="annotation-head"></span></li>
+		  </ul>
+		</div>
+      	<div class=" nicescroll outline"  style="max-height:85%;overflow-y:auto;">
+		<table id="annotation-list" class="table ">
+			<thead>
+			</thead>
+			<tbody style="background: white; " >
+			</tbody>
+		</table>
+		</div>
+	</div>
+</div>
+
+<script>
+$(function(){
+		var bookmarks={};
+		//
+		// catch event on updated annotation   
+		$(document).bind("on-update-bookmark",function(who,bookmark){
+			bookmark.href="#"+bookmark.id;
+			var item=$("#sidebar-list .ac-"+bookmark.id);
+			$("#tmpl-sidebar-item").tmpl(item).prependTo(item.parent()).click(function(){
+				$(document).trigger("on-display-bookmark",[bookmark]);
+				return false;
+			});			
+			item.remove();
+		});
+		
+		//
+		// set bold/normal the font weight
+		$(document).bind("on-display-bookmark",function(who,bookmark){
+			selected[annotation.accession]="bold";
+			$("#annotation-list .ac-"+annotation.accession).addClass("bold");
+		});
+
+		$(document).bind("on-hide-bookmark",function(who,bookmark){
+			delete(selected[annotation.accession]);
+			$("#annotation-list .ac-"+annotation.accession).removeClass("bold");
+		});
+	
+		//
+		// search results
+		$("#sidebar-search").sidebarsearch({baseurl: "/search/"}).bind("on-search-result",function(who,term,data){
+			var tbody=$("#sidebar tbody");
+			var thead=$("#sidebar-head");
+			thead.html(' ('+data.count+')');
+			
+			//
+			// on error
+			if(data.error){
+				$("#tmpl-sidebar-item").tmpl(data).appendTo(tbody);
+				return;
+			}
+			
+			tbody.html("");
+			//
+			// render view with search result
+			$.each(data.results, function(key, bookmark) {
+				bookmark.selected=(bookmarks[bookmark.id])?bookmarks[bookmark.id]:"";
+				$("#tmpl-sidebar-item").tmpl(bookmark).appendTo(tbody).click(function(){
+					$(document).trigger("on-display-bookmark",[bookmark]);
+					return false;
+				});
+			});
+			
+			$("#sidebar .nicescroll").niceScroll({autohidemode:false});
+			
+		});
+		
+	});	
+</script>
+
+<!--                    -->
+<!--  JQUERY TEMPLATE   -->
+<!--                    -->
+<script type="text/x-jquery-tmpl" id="tmpl-sidebar-item">
+	<tr  class="search-item ac-{{= id}}">
+	{{if error}}
+	  <td ><div class="alert alert-error">{{= error}}</div></td>
+	{{else}}
+	  <td class="item ">
+	  	<a href="{{= url}}"  class="{{= selected}}"> {{= item.name}} </a> 
+	  	<i class="icon-chevron-right right"></i>
+	  </td>
+    {{/if}}
+	</tr>
+</script>

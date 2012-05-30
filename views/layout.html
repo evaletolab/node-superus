@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>super.us</title>
+	    <!-- Le styles -->
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+	
+		<style type="text/css">
+		.img-animated{
+			  display: inline-block;
+			  width: 16px;
+			  height: 16px;
+			  line-height: 16px;
+			  vertical-align: text-top;
+			  background-image: url("/img/spinner.gif");
+			  background-position: 16px 16px;
+			  -background-repeat: no-repeat;
+			  *margin-right: .3em;
+		}
+		</style>
+	
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->	  
+	
+	    <!-- Le fav and touch icons -->
+		<script type="text/javascript" src="/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.expander.js"></script>
+	    <script type="text/javascript" src="/js/jquery.nicescroll.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.tmpl.js"></script>
+	    <!-- FONDATION FRAMEWORK ADD-ONS -->
+	    <script type="text/javascript" src="/js/bootstrap.js"></script>
+	    <script type="text/javascript" src="/js/bbq.js"></script>
+	    <script type="text/javascript" src="/js/app/jquery.superus.common.js"></script>
+	    
+		<script>
+			$(function(){
+				
+				//
+				// start search
+				$("form.navbar-search").submit(function(e){
+					$("#sidebar-search").trigger("search-query",[$("form.navbar-search input[type=text]").val()]);
+					return false;
+				});
+
+
+				//
+				// search is updated by someone in the cosmos, update the field				
+				$(document).bind("search-update-field",function(who,query){
+					$("form.navbar-search input[type=text]").val(query);
+				});
+			});			
+		</script>
+		{{html head}}
+	</head>
+	<body style="background-color: #eee;">
+	
+	    <div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
+	        <div class="container-fluid">
+	          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </a>
+	          <a class="brand" href="#">superus</a>
+	          <div class="nav-collapse">
+	            <ul class="nav">
+	              <li class=""><a href="">Home</a></li>
+	              <li><a href="#about">About</a></li>
+	              <li><a href="#contact">Contact</a></li>
+	            </ul>
+	            <form class="navbar-search pull-left">
+	              <input type="text" class="search-query" placeholder="Search">
+	            </form>
+	            <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+	          </div><!--/.nav-collapse -->
+	        </div>
+	      </div>
+	    </div>
+	
+	    <div class="_container wrap-height">
+	
+	      
+	    <div class="container-fluid wrap-height" style="margin-top:50px;padding-left:5px">
+	      {{html body}}		
+		  <div id="debug"></div>
+		  <footer class="footer wrap-height">
+		  </footer>
+      	    
+	    </div> 
+	
+
+	</body>
+</html>
