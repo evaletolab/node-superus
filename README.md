@@ -1,4 +1,5 @@
 node-superus
 ============
 
-superus a simple ****  made with node.js
+Yet another feed reader!
+superus a simple feed reader build with node.js
