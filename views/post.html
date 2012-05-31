@@ -1,0 +1,35 @@
+
+
+
+<div  style="margin-left:0px;" id="post" class="">
+	<div class=" box bg-white outline wrap-height" >
+	</div>
+</div>
+
+<script>
+$(function(){
+		//
+		// catch event on updated bookmark   
+		$(document).bind("on-update-bookmark",function(who,bookmark){
+		});
+		
+		//
+		// set bold/normal the font weight
+		$(document).bind("on-display-bookmark",function(who,bookmark){
+            $.findFeedById(bookmark.id,function(r){
+                console.log(r);
+            });
+		});
+
+	
+		
+	});	
+</script>
+
+<!--                    -->
+<!--  JQUERY TEMPLATE   -->
+<!--                    -->
+{{verbatim}}
+<script type="text/x-jquery-tmpl" id="tmpl-sidebar-item">
+</script>
+{{/verbatim}}
