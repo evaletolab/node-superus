@@ -51,7 +51,7 @@ $.inputAttr=function(input){
  * database services   
  */
 $.findFeedById=function(id, cb){
-	$.getJSON("/feed/"+id+"?format=json",function(result){
+	$.getJSON("/feed/get/"+id,function(result){
 		//
 		// format the structure for a better template rendering
 

@@ -18,7 +18,7 @@ exports.index = function(req, res){
 };
 
 exports.feed = function(req,res){
-    services.findFeedById(req.params.id, function(r){
+    services.findStreamById(req.params.id, function(r){
         res.send(JSON.stringify(r));
     });
 };

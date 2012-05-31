@@ -1,5 +1,5 @@
 /**
- * Get data
+ * Get data use static data only for tests
  */
 
 var feeds=[
@@ -20,8 +20,27 @@ var feeds=[
     },
 ];
 
+
+exports.findStreamById = function(id, cb){
+    require('./feedstream').get(feeds[id-1].url).on('post', function (post) {
+        cb(post);
+    });
+
+    return ;
+};
+
+
 exports.findFeedById = function(id, cb){
-    return cb(feeds[0]);
+    return cb(feeds[id-1]);
+};
+
+
+exports.findFeedByName = function(name, cb){
+    for (var id in feeds){
+        if(feeds[id].name.toLowerCase().indexOf(name.toLowerCase())>-1)
+            cb(feeds[id]);
+    }
+    return;
 };
 
 exports.findAllFeedByName = function(name, cb){

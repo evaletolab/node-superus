@@ -15,7 +15,7 @@
     	    <li class="divider"></li>
             <li class="nav-header">All feeds<span id="bookmark-head"></span></li>
             {{each feeds}}
-                <li class=""><a href="#open={{= url}}"   > {{= name}}</a></li>
+                <li class=""><a href="#openfeed={{= name}}" class="open-feed" rel="{{= JSON.stringify(this)}}" > {{= name}}</a></li>
             {{/each}}
 		  </ul>
 		</div>
@@ -83,9 +83,13 @@ $(function(){
 			});
 			
 			$("#sidebar .nicescroll").niceScroll({autohidemode:false});
-			
+    		
 		});
-		
+	    $(".open-feed").click(function(){
+            var bookmark=JSON.parse($(this).attr('rel'));
+			$(document).trigger("on-display-bookmark",[bookmark]);
+			return false;
+        });	
 	});	
 </script>
 
