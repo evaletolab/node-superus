@@ -1,13 +1,11 @@
 
 /**
- * this is the common javascript tools for the bioeditor application
+ * this is the common javascript tools for the Superus application
  */
 
 
 /**
- * define some global constants
  */
-var BIOEDITOR			= '/';
 var SOLR_URL			= 'http://dev-dbint:8983/solr/';
 var SOLR_PARAMS			= '/select/?version=2.2&start=0&rows=10&indent=on&wt=json';
 var SOLR_BIOOBJECT_URL	= 'http://dev-dbint:8983/solr/bioObjectCore/select/?version=2.2&start=0&rows=10&indent=on&wt=json';
@@ -52,29 +50,19 @@ $.inputAttr=function(input){
 /**
  * database services   
  */
-$.findAnnotationByAc=function(ac, cb){
-	$.getJSON(BIOEDITOR+"/annotations/"+ac+"?format=json",function(result){
+$.findFeedById=function(id, cb){
+	$.getJSON("/feed/"+id+"?format=json",function(result){
 		//
 		// format the structure for a better template rendering
-		var relations=[];
-    	$.each(result.relations,function(k,v){
-    		v.accession=k;
-    		relations.push(v);
-    	});
-    	result.relations=relations;
-		
+
 		if(cb)cb(result);
 	});
 };
 
-$.findBioObjectByUniqueName=function (uniqueName,cb){
-	$.ajax({type: 'GET',url: BIOEDITOR+"/bioObjects/create/"+uniqueName,success:function(data){
-		if(cb)cb(data);
-	},dataType:"json"});
-};
 
-$.saveAnnotation=function(annotation, cb){
-	$.ajax({type: 'GET',url: BIOEDITOR+"/annotations/update/"+annotation.accession,data: {json:JSON.stringify(annotation)},success:function(data){
+
+$.saveFeed=function(feed, cb){
+	$.ajax({type: 'GET',url: "/feed/update/"+feed.id,data: {json:JSON.stringify(feed)},success:function(data){
 		if(cb)cb(data);
 	},dataType:"json"});	
 };

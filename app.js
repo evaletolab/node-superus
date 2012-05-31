@@ -21,6 +21,7 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set("view engine", "html");
   app.register(".html", jqtpl.express);
+ 
 
   
   app.use(express.bodyParser());
@@ -40,7 +41,9 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/feed/get/:id', routes.feed);
+app.get('/feed/search/:query', routes.feedsearch);
 
-app.listen(3000, function(){
+app.listen(process.env.PORT, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

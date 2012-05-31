@@ -29,7 +29,7 @@
 			var params = $.deparam.fragment();
 
 			if(params.query !=null && lastQ!=params.query ){
-				_query({url: BIOEDITOR+"/annotations/search", query: params.query, page: 1});
+				_query({url: "/feed/search/"+params.query, page: 1});
 				$(document).trigger("search-update-field",[params.query]);
 				lastQ=params.query;
 			}
