@@ -12,7 +12,8 @@ var express = require('express')
 
 var app = module.exports = express.createServer();
 
-// Configuration
+var port = (process.env.VMC_APP_PORT || 3000);
+var host = (process.env.VCAP_APP_HOST || 'localhost');
 
 app.configure(function(){
 
@@ -44,6 +45,6 @@ app.get('/', routes.index);
 app.get('/feed/get/:id', routes.feed);
 app.get('/feed/search/:query', routes.feedsearch);
 
-app.listen(process.env.PORT, function(){
+app.listen(port,host, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
