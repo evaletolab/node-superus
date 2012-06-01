@@ -19,8 +19,8 @@ $(function(){
                 //console.log(r);
                 
                 $.each(r.channel.item,function(i, post){
-									$("#tmpl-post-item").tmpl(post).prependTo(body);
-									console.log(post);
+									$("#tmpl-post-item").tmpl({post:post}).prependTo(body);
+									//console.log(post);
                 });
                 $("#post").getNiceScroll().resize();
                 
@@ -40,10 +40,14 @@ $(function(){
 <script type="text/x-jquery-tmpl" id="tmpl-post-item">
 	<div class=" box bg-white outline wrap-height" >
 		<div class="box-header">
-			<h4><a href="{{= link}}">{{= title}}</a> <i class="icon-remove right hand" ></i></h4>
+			<h4><a href="{{= post.link}}">{{= post.title}}</a> <i class="icon-remove right hand" ></i></h4>
 		</div>
 		<div class="box-body">
-			{{html description}}
+		{{if post["content:encoded"]}}
+			{{html post["content:encoded"]}}
+		{{else}}
+			{{html post.description}}
+		{{/if}}
 		</div>
 		<div class="box-footer">
 			<p>
