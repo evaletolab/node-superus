@@ -20,9 +20,9 @@ $(function(){
                 
                 $.each(r.channel.item,function(i, post){
 									$("#tmpl-post-item").tmpl({post:post}).prependTo(body);
+	                $("#post").getNiceScroll().resize();
 									//console.log(post);
                 });
-                $("#post").getNiceScroll().resize();
                 
             });
 		});
