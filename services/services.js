@@ -25,17 +25,27 @@ var feeds=[
 
 
 exports.findStreamById = function(id, cb){
-
+		
+		// check cache!
+		try{
+			var fpost=JSON.parse(require('fs').readFileSync(require('path').join(__dirname, feeds[id-1].name+'.json')).toString());
+			cb(fpost);
+			return;
+		}catch(e){
+			console.log(e);
+		}
+		
 		var parser = new xml2object([ 'rss' ]);
 
 		// Bind to the object event to work with the objects found in the XML file
 		parser.on('object', function(name, post) {
+				//console.log(JSON.stringify(post));
 				cb(post);
 		});
 
 		// Bind to the file end event to tell when the file is done being streamed
 		parser.on('end', function(name, obj) {
-				console.log('Finished parsing xml!');
+				//console.log('Finished parsing xml!');
 		});
 
 		// Pipe a request into the parser

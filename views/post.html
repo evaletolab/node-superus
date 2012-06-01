@@ -1,7 +1,7 @@
 
 
 
-<div  style="margin-left:0px;" id="post" class="">
+<div id="post" class="" style="margin-left:0px;max-height:100%;overflow-y:auto;">
 </div>
 
 <script>
@@ -19,12 +19,14 @@ $(function(){
                 //console.log(r);
                 
                 $.each(r.channel.item,function(i, post){
-                	console.log(post);
 									$("#tmpl-post-item").tmpl(post).prependTo(body);
+									console.log(post);
                 });
+                $("#post").getNiceScroll().resize();
                 
             });
 		});
+    $("#post").niceScroll({autohidemode:false});
 
 	
 		
