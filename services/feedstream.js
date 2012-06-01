@@ -16,15 +16,21 @@ function FeedStream (strict) {
 
   parser.onopentag = function (node) {
     var name = node.name.toLowerCase()
+    
+    //
     // RSS Support
     if (name === 'rss') {
       parser.onopentag = function (node) {
         var name = node.name.toLowerCase()
+        
+        //
+        // on channel
         if (name === 'channel') {
           var itemlistener = function () {
             var post = {};
-            post.enclosures = []
+            post.enclosures = [];
             var url, contenttype;
+            
             parser.onopentag = function (node) {
               var name = node.name.toLowerCase()
               post[name] = ''
@@ -35,6 +41,8 @@ function FeedStream (strict) {
                 if (attr.name == 'type') contenttype = attr.value
               }
               
+              //
+              // on enclosure
               if (name === 'enclosure') {
                 if (url) post.enclosures.push({url:url,contenttype:contenttype})
               }
@@ -68,6 +76,8 @@ function FeedStream (strict) {
                 parser.onclosetag = onclosetag
               }
             }
+            //
+            //
             var onclosetag = function (name) {
               name = name.toLowerCase()
               if (name === 'item') {
@@ -91,6 +101,7 @@ function FeedStream (strict) {
                 }
               }
             }
+            
             parser.onclosetag = onclosetag;
           }
           parser.onopentag = function (node) {
@@ -114,6 +125,9 @@ function FeedStream (strict) {
       }
     }
     
+    //
+    //
+    //
     // Atom Support.
     if (name === 'feed') {
       parser.onopentag = function (node) {
@@ -188,10 +202,12 @@ function FeedStream (strict) {
   }
   this.parser = parser
   parser.on('error', function (err) {
-    console.error(err)
+    console.error(err);
   })
 }
-util.inherits(FeedStream, stream.Stream)
+
+util.inherits(FeedStream, stream.Stream);
+
 FeedStream.prototype.write = function (chunk) {
   this.emit('data', chunk);
 }
@@ -199,15 +215,20 @@ FeedStream.prototype.end = function (chunk) {
   this.emit('end', chunk)
 }
 
+//
+//
+// export
 exports.get = function () {
   var s = new FeedStream(arguments[0] ? arguments[0].strict : undefined )
   var req = r.get.apply(request, arguments)
+  req.setMaxListeners(0)
   req.pipe(s)
   req.on('error', function (e) {
     s.emit('error', e)
   })
   return s
 }
+
 exports.FeedStream = FeedStream;
 exports.createFeedStream = function (strict) {
   return new FeedStream(strict)

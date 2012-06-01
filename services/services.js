@@ -2,6 +2,9 @@
  * Get data use static data only for tests
  */
 
+var xml2object= require('xml2object');
+var request = require('request');
+
 var feeds=[
     {
         id:1,
@@ -15,16 +18,29 @@ var feeds=[
     },
     {
         id:3,
-        name:"Planet Gnome",
-        url:"http://planet.gnome.org/atom.xml"
+        name:"OWNI.fr",
+        url:"http://owni.fr/feed/"
     },
 ];
 
 
 exports.findStreamById = function(id, cb){
-    require('./feedstream').get(feeds[id-1].url).on('post', function (post) {
-        cb(post);
-    });
+
+		var parser = new xml2object([ 'rss' ]);
+
+		// Bind to the object event to work with the objects found in the XML file
+		parser.on('object', function(name, post) {
+				cb(post);
+		});
+
+		// Bind to the file end event to tell when the file is done being streamed
+		parser.on('end', function(name, obj) {
+				console.log('Finished parsing xml!');
+		});
+
+		// Pipe a request into the parser
+		request.get(feeds[id-1].url).pipe(parser.saxStream);
+
 
     return ;
 };

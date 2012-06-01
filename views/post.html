@@ -2,8 +2,6 @@
 
 
 <div  style="margin-left:0px;" id="post" class="">
-	<div class=" box bg-white outline wrap-height" >
-	</div>
 </div>
 
 <script>
@@ -17,7 +15,14 @@ $(function(){
 		// set bold/normal the font weight
 		$(document).bind("on-display-bookmark",function(who,bookmark){
             $.findFeedById(bookmark.id,function(r){
-                console.log(r);
+            		var body=$("#post");
+                //console.log(r);
+                
+                $.each(r.channel.item,function(i, post){
+                	console.log(post);
+									$("#tmpl-post-item").tmpl(post).prependTo(body);
+                });
+                
             });
 		});
 
@@ -30,6 +35,23 @@ $(function(){
 <!--  JQUERY TEMPLATE   -->
 <!--                    -->
 {{verbatim}}
-<script type="text/x-jquery-tmpl" id="tmpl-sidebar-item">
+<script type="text/x-jquery-tmpl" id="tmpl-post-item">
+	<div class=" box bg-white outline wrap-height" >
+		<div class="box-header">
+			<h4><a href="{{= link}}">{{= title}}</a> <i class="icon-remove right hand" ></i></h4>
+		</div>
+		<div class="box-body">
+			{{html description}}
+		</div>
+		<div class="box-footer">
+			<p>
+		      <button type="button" class="btn btn-mini btn-primary">unread</button>
+		      <button type="button" class="btn btn-mini ">diaspora</button>
+		      <button type="button" class="btn btn-mini">tweet</button>
+		      <button type="button" class="btn btn-mini"><i class="icon-star-empty"></i> publish</button>
+		  </p>
+		</div>
+	</div>
+
 </script>
 {{/verbatim}}
