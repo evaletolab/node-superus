@@ -26,15 +26,6 @@ var feeds=[
 
 exports.findStreamById = function(id, cb){
 		
-		// check cache!
-		try{
-			var fpost=JSON.parse(require('fs').readFileSync(require('path').join(__dirname, feeds[id-1].name+'.json')).toString());
-			cb(fpost);
-			return;
-		}catch(e){
-			console.log(e);
-		}
-		
 		var parser = new xml2object([ 'rss' ]);
 
 		// Bind to the object event to work with the objects found in the XML file

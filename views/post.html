@@ -15,11 +15,12 @@ $(function(){
 		// set bold/normal the font weight
 		$(document).bind("on-display-bookmark",function(who,bookmark){
             $.findFeedById(bookmark.id,function(r){
-            		var body=$("#post");
+            	var body=$("#post").html('');
                 //console.log(r);
                 
                 $.each(r.channel.item,function(i, post){
-									$("#tmpl-post-item").tmpl({post:post}).prependTo(body);
+                    if (i>10)return false;
+					$("#tmpl-post-item").tmpl({post:post}).prependTo(body);
 	                $("#post").getNiceScroll().resize();
 									//console.log(post);
                 });
