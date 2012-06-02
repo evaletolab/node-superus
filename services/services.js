@@ -9,18 +9,21 @@ var feeds=[
     {
         id:1,
         weight:1,
+        type:"rss",
         name:"Enerzine",
         url:"http://www.enerzine.com/rss2news.xml"
     },
     {
         id:2,
         weight:1,
+        type:"rss",
         name:"MAKE Magazine",
         url:"http://blog.makezine.com/index.xml"
     },
     {
         id:3,
         weight:1,
+        type:"rss",
         name:"OWNI.fr",
         url:"http://owni.fr/feed/"
     },
@@ -28,12 +31,14 @@ var feeds=[
         id:4,
         weight:1,
         name:"Infosud.ORG",
+        type:"rss",
         url:"http://www.infosud.org/spip.php?page=backend"
     },
     {
         id:5,
         weight:1,
         name:"Le hunffington post",
+        type:"feed",
         url:"http://www.huffingtonpost.com/feeds/verticals/france/news.xml"
     }
 ];
@@ -41,7 +46,8 @@ var feeds=[
 
 exports.findStreamById = function(id, cb){
 		
-		var parser = new xml2object();
+		var parser = new xml2object([feeds[id-1].type]);
+
 
 		// Bind to the object event to work with the objects found in the XML file
 		parser.on('object', function(name, post) {
