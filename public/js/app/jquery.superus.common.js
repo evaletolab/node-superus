@@ -50,11 +50,20 @@ $.inputAttr=function(input){
 /**
  * database services   
  */
+var _cache={};
 $.findFeedById=function(id, cb){
+    //
+    //simple session cache 
+    if (_cache[id]){
+        cb(_cache[id]);
+        return;
+    }
 	$.getJSON("/feed/get/"+id,function(result){
+        //
+        // caching
+        _cache[id]=result;
 		//
 		// format the structure for a better template rendering
-
 		if(cb)cb(result);
 	});
 };

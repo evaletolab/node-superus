@@ -41,7 +41,7 @@ var feeds=[
 
 exports.findStreamById = function(id, cb){
 		
-		var parser = new xml2object([ 'rss' ]);
+		var parser = new xml2object();
 
 		// Bind to the object event to work with the objects found in the XML file
 		parser.on('object', function(name, post) {
