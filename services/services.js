@@ -8,19 +8,34 @@ var request = require('request');
 var feeds=[
     {
         id:1,
+        weight:1,
         name:"Enerzine",
         url:"http://www.enerzine.com/rss2news.xml"
     },
     {
         id:2,
+        weight:1,
         name:"MAKE Magazine",
         url:"http://blog.makezine.com/index.xml"
     },
     {
         id:3,
+        weight:1,
         name:"OWNI.fr",
         url:"http://owni.fr/feed/"
     },
+    {
+        id:4,
+        weight:1,
+        name:"Infosud.ORG",
+        url:"http://www.infosud.org/spip.php?page=backend"
+    },
+    {
+        id:5,
+        weight:1,
+        name:"Le hunffington post",
+        url:"http://www.huffingtonpost.com/feeds/verticals/france/news.xml"
+    }
 ];
 
 
