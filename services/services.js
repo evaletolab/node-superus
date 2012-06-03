@@ -40,6 +40,13 @@ var feeds=[
         name:"Le hunffington post",
         type:"feed",
         url:"http://www.huffingtonpost.com/feeds/verticals/france/news.xml"
+    },
+    {
+    		id:6,
+    		weight:1,
+    		name:"Sur les épaules de Darwin",
+    		type:"rss",
+    		url:"http://radiofrance-podcast.net/podcast09/rss_11549.xml"
     }
 ];
 

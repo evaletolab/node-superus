@@ -17,10 +17,11 @@ $(function(){
             $.findFeedById(bookmark.id,function(r){
             	var body=$("#post").html('');
                 //console.log(r);
-                
-                $.each(r.channel.item,function(i, post){
+                var items=(r.channel)?r.channel.item:r.entry;
+                $.each(items,function(i, post){
                     if (i>10)return false;
-					$("#tmpl-post-item").tmpl({post:post}).prependTo(body);
+									$("#tmpl-post-item").tmpl({post:post}).prependTo(body);
+									$('audio,video').mediaelementplayer();
 	                $("#post").getNiceScroll().resize();
 									//console.log(post);
                 });
@@ -44,18 +45,29 @@ $(function(){
 			<h4><a href="{{= post.link}}">{{= post.title}}</a> <i class="icon-remove right hand" ></i></h4>
 		</div>
 		<div class="box-body">
+		{{if post.content}}
+			{{html post.content.$t}}		
+		{{/if}}
 		{{if post["content:encoded"]}}
 			{{html post["content:encoded"]}}
 		{{else}}
 			{{html post.description}}
 		{{/if}}
+		{{if post.enclosure && (post.enclosure.type.indexOf('audio')>-1)}}
+			<br/>
+			<blockquote>
+				<audio  class="audio" src="{{= post.guid}}" type="audio/mp3" controls="controls"></audio>
+				<!--<a class="audio" inclosure="{{= JSON.stringify(post.enclosure)}}" href="{{= post.guid}}"><i class="icon-play"></i> play </a>-->
+			</blockquote>
+		{{/if}}
+		
 		</div>
 		<div class="box-footer">
 			<p>
 		      <button type="button" class="btn btn-mini btn-primary">unread</button>
 		      <button type="button" class="btn btn-mini ">diaspora</button>
 		      <button type="button" class="btn btn-mini">tweet</button>
-		      <button type="button" class="btn btn-mini"><i class="icon-star-empty"></i> publish</button>
+		      <button type="button" class="btn btn-mini"><i class="icon-star-empty"></i> save</button>
 		  </p>
 		</div>
 	</div>

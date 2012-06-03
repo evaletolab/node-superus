@@ -5,8 +5,8 @@
 	    <!-- Le styles -->
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
-    	<link rel="stylesheet" type="text/css" href="/css/style.css" />
-	
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/js/media/mediaelementplayer.min.css" />
 		<style type="text/css">
 		.img-animated{
 			  display: inline-block;
@@ -29,8 +29,10 @@
 	    <!-- Le fav and touch icons -->
 		<script type="text/javascript" src="/js/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/jquery.expander.js"></script>
-	    <script type="text/javascript" src="/js/jquery.nicescroll.min.js"></script>
+	  <script type="text/javascript" src="/js/jquery.nicescroll.min.js"></script>
 		<script type="text/javascript" src="/js/jquery.tmpl.js"></script>
+		<!--<script type="text/javascript" src="/js/buzz.js"></script>-->
+		<script type="text/javascript" src="/js/media/mediaelement-and-player.min.js"></script>
 	    <!-- FONDATION FRAMEWORK ADD-ONS -->
 	    <script type="text/javascript" src="/js/bootstrap.js"></script>
 	    <script type="text/javascript" src="/js/bbq.js"></script>
@@ -52,6 +54,11 @@
 				$(document).bind("search-update-field",function(who,query){
 					$("form.navbar-search input[type=text]").val(query);
 				});
+				
+				//
+				// media content
+
+
 			});			
 		</script>
 		{{html head}}
@@ -76,7 +83,11 @@
 	            <form class="navbar-search pull-left">
 	              <input type="text" class="search-query" placeholder="Search">
 	            </form>
-	            <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+	            
+	            <p class="navbar-text pull-right">
+
+	            		Logged in as <a href="#">username</a>
+	            </p>
 	          </div><!--/.nav-collapse -->
 	        </div>
 	      </div>
