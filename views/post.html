@@ -21,7 +21,7 @@ $(function(){
                 $.each(items,function(i, post){
                     if (i>10)return false;
 									$("#tmpl-post-item").tmpl({post:post}).prependTo(body);
-									$('audio,video').mediaelementplayer();
+									//$('audio,video').mediaelementplayer();
 	                $("#post").getNiceScroll().resize();
 									//console.log(post);
                 });
