@@ -13,12 +13,15 @@ var express = require('express')
 var app = module.exports = express.createServer();
 
 
-var port = (process.env.PORT || 3000);
+//
+// manage local or c9 env.
+var port = (process.env.VMC_APP_PORT || process.env.C9_PORT || 3000);
 var host = (process.env.HOST || 'localhost');
 
-if (process.env.VMC_APP_PORT && process.env.VMC_APP_HOST){
-    port=process.env.VMC_APP_PORT;
-    host=process.env.VMC_APP_HOST;
+//
+// manage vmc env
+if (process.env.C9_PORT ){
+    host='0.0.0.0';
 }
 
 app.configure(function(){
@@ -51,6 +54,6 @@ app.get('/', routes.index);
 app.get('/feed/get/:id', routes.feed);
 app.get('/feed/search/:query', routes.feedsearch);
 
-app.listen(process.env.PORT ,process.env.HOST , function(){
+app.listen(port ,host , function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
